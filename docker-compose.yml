@@ -14,5 +14,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: forsit-ecommerce-admin-api
+    restart: always
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh scripts/init.sh
+
 volumes:
   postgres_data:
