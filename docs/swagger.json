@@ -1,40 +1,196 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "E-commerce Admin API",
-      "version": "1.0.0"
+  "openapi": "3.0.0",
+  "info": {
+    "title": "E-commerce Admin API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/products": {
+      "post": {
+        "summary": "Create a new product",
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product created"
+          }
+        }
+      },
+      "get": {
+        "summary": "All Product",
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "All Product"
+          }
+        }
+      }
     },
-    "paths": {
-      "/products": {
-        "post": {
-          "summary": "Create a new product",
-          "responses": {
-            "200": {
-              "description": "Product created"
-            }
+    "/inventory": {
+      "get": {
+        "summary": "Get all inventory items",
+        "tags": [
+          "Inventory"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all inventory items with product details"
           }
         }
-      },
-      "/inventory": {
-        "get": {
-          "summary": "View inventory",
-          "responses": {
-            "200": {
-              "description": "Inventory status"
-            }
+      }
+    },
+    "/inventory/low": {
+      "get": {
+        "summary": "Get low stock inventory items",
+        "tags": [
+          "Inventory"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of low stock items"
           }
         }
-      },
-      "/sales": {
-        "get": {
-          "summary": "View sales data",
-          "responses": {
-            "200": {
-              "description": "Sales data"
+      }
+    },
+    "/inventory/{id}": {
+      "put": {
+        "summary": "Update stock level for an inventory item",
+        "tags": [
+          "Inventory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Inventory ID to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "stock_level": {
+                    "type": "integer",
+                    "example": 20
+                  }
+                },
+                "required": [
+                  "stock_level"
+                ]
+              }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inventory item updated successfully"
+          },
+          "404": {
+            "description": "Inventory item not found"
+          }
+        }
+      }
+    },
+    "/sales": {
+      "get": {
+        "summary": "Get sales with optional filters",
+        "tags": [
+          "Sales"
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Start date (e.g., 2024-01-01)"
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "End date (e.g., 2024-12-31)"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Product category to filter by"
+          },
+          {
+            "name": "productId",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Product ID to filter by"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of sales matching filters"
+          }
+        }
+      }
+    },
+    "/sales/revenue": {
+      "get": {
+        "summary": "Analyze revenue by time period",
+        "tags": [
+          "Sales"
+        ],
+        "parameters": [
+          {
+            "name": "period",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "daily",
+                "weekly",
+                "monthly",
+                "yearly"
+              ]
+            },
+            "description": "Time period for revenue aggregation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Revenue stats grouped by time period"
+          }
+        }
+      }
+    },
+    "/sales/compare": {
+      "get": {
+        "summary": "Compare revenue across categories",
+        "tags": [
+          "Sales"
+        ],
+        "responses": {
+          "200": {
+            "description": "Revenue comparison by category"
           }
         }
       }
     }
   }
-  
+}
