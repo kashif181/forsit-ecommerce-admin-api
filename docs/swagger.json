@@ -1,0 +1,40 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "E-commerce Admin API",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/products": {
+        "post": {
+          "summary": "Create a new product",
+          "responses": {
+            "200": {
+              "description": "Product created"
+            }
+          }
+        }
+      },
+      "/inventory": {
+        "get": {
+          "summary": "View inventory",
+          "responses": {
+            "200": {
+              "description": "Inventory status"
+            }
+          }
+        }
+      },
+      "/sales": {
+        "get": {
+          "summary": "View sales data",
+          "responses": {
+            "200": {
+              "description": "Sales data"
+            }
+          }
+        }
+      }
+    }
+  }
+  
