@@ -1,5 +1,7 @@
 # Submitted By Kashif Sardar (kashif181@gmail.com)
 
+# Available at https://github.com/kashif181/forsit-ecommerce-admin-api
+
 # Forsit E-commerce Admin API
 
 Back-end REST API for Admin Dashboard for managing products, inventory, and analyzing sales/revenue.
